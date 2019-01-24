@@ -17,7 +17,7 @@
     opacity: 0;
 }
 /* Custom checkbox*/
-.calc-btn_wrapper input[type="checkbox"]+span {
+.calc-btn_wrapper input[type="checkbox"]+span, .seocalc-item input[type="radio"]+span {
     -webkit-appearance:none;
     width:30px;
     height:30px;
@@ -31,7 +31,8 @@
     cursor: pointer;
 }
 .calc-btn_wrapper input[type="checkbox"]:checked+span {border:2px solid #8ab772;}
-.calc-btn_wrapper input[type="checkbox"]+span:before{
+.seocalc-item input[type="radio"]+span>div {width: 20px;}
+.calc-btn_wrapper input[type="checkbox"]+span:before, .seocalc-item input[type="radio"]+span:before{
     content: "\2716";
     display: block;
     color: #ed008a;
@@ -39,7 +40,7 @@
     pointer-events: none;
     font-size: 17px;
 }
-.calc-btn_wrapper input[type="checkbox"]:checked+span:before{
+.calc-btn_wrapper input[type="checkbox"]:checked+span:before, .seocalc-item input[type="radio"]:checked+span:before{
     content: "\2714";
     display: block;
     margin: 3px 5.5px;
