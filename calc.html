@@ -319,6 +319,82 @@
                         </transition>
                     </div>
 
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(10)" :class="{ 'active': selectNumCampaigns }">
+                            <h3>Количество пройденных кампаний</h3><span :class="{ active: boxes[10].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[10].show">
+                                <div class="body-wrapper">
+
+                                    <small>Выберите примерное количество пройденных кампаний (всего 17 кампаний в году)</small>
+
+                                    <div class="calc-num">
+                                        <label>
+                                            <input
+                                                type="number"
+                                                v-model="selectNumCampaigns">
+                                            <span><div></div></span>
+                                            <div class="calc-num_info">Укажите планируемое количество часов</div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(11)" :class="{ 'active': selectNumYear }">
+                            <h3>Год ведения бизнеса</h3><span :class="{ active: boxes[11].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[11].show">
+                                <div class="body-wrapper">
+
+                                    <small>Выберите год ведения бизнеса</small>
+
+                                    <div class="calc-num">
+                                        <label>
+                                            <input
+                                                type="number"
+                                                v-model="selectNumYear">
+                                            <span><div></div></span>
+                                            <div class="calc-num_info">Укажите год ведения бизнеса</div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(12)" :class="{ 'active': radioEarnings }">
+                            <h3>Заработок показать "по-кампаниям" или "по-месячно"</h3><span :class="{ active: boxes[12].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[12].show">
+                                <div class="body-wrapper">
+
+                                    <ul v-for="(item, index) in earningsArr" :key="item.name">
+                                        <li class="seocalc-item">
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="radioSel"
+                                                    hidden
+                                                    :value="item.coef"
+                                                    v-model="radioEarnings"
+                                                >
+                                                <span><div></div></span>
+                                                <div>{{ item.name }}</div>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
                 </div>
             </transition>
 

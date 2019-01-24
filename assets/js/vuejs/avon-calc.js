@@ -37,9 +37,12 @@ var vm = new Vue({
         checkSeasons: '',
         activityNumberArr: [],
         dopSaleNumberArr: [],
+        selectNumCampaigns: '',
+        selectNumYear: '',
+        radioEarnings: '',
 
         // состояние аккордеона
-        boxes: [{show: true}, {show: false}, { show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}],
+        boxes: [{show: true}, {show: false}, { show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}],
         // --- Данные ---
         // Количество населения
         selectPopulationArr: [{
@@ -136,12 +139,21 @@ var vm = new Vue({
             linkName: '',
             coef: 3
         }],
+        earningsArr: [{
+            name: 'По-кампаниям',
+            linkName: '',
+            coef: 3
+        }, {
+            name: 'По-месячно',
+            linkName: '',
+            coef: 3
+        }],
     },
 
     methods: {
         // управление аккордеоном
         mytoggle: function (n) {
-            for (var i = 0; i < 8; i++) { // close all boxes
+            for (var i = 0; i < 13; i++) { // close all boxes
                 vm.boxes[i].show = false;
             }
             vm.boxes[n].show = true; // open the corresponding box
