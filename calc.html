@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/font-ProximaNova.css">
+    <link rel="stylesheet" href="assets/css/avon-calc.css">
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="container">
+            <h2>{{ title }}</h2>
+            <span class="calc-title_info">
+                Обратим внимание, что некоторые составляющие калькулятора играют большую или меньшую роль на определенных этапах Представителя/Координатора. Поэтому посмотрите свой доход на разных этапах.
+            </span>
+
+            <div class="row">
+                <div class="calc-button_block col-sm-12">
+                    <div class="calc-btn" @click="activeButton1 = !activeButton1, activeButton2 = false" v-bind:class="{ 'active': activeButton1 }">
+                        Представитель
+                    </div>
+                    <div class="calc-btn" @click="activeButton2 = !activeButton2, activeButton1 = false" v-bind:class="{ 'active': activeButton2 }">
+                        Координатор
+                    </div>
+                </div>
+            </div>
+
+            <transition name="fade">
+                <div class="row" v-show="activeButton1 || activeButton2">
+                    <div class="calc-button_block col-sm-12">
+                        <div class="calc-btn" @click="activeButton3 = !activeButton3, activeButton4 = false" v-bind:class="{ 'active': activeButton3 }">
+                            Использовать точный расчет
+                        </div>
+                        <div class="calc-btn" @click="activeButton4 = !activeButton4, activeButton3 = false" v-bind:class="{ 'active': activeButton4 }">
+                            Использовать упрощенный расчет
+                        </div>
+                    </div>
+                </div>
+            </transition>
+
+            <transition name="fade">
+                <div class="calc-body" v-show="activeButton3 || activeButton4">
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(0)" :class="{ 'active': selectPopulation }">
+                            <h3>Количество населения в городе</h3><span :class="{ active: boxes[0].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[0].show">
+                                <div class="body-wrapper">
+
+                                    <small>Выберите примерное количество населения в вашем городе</small>
+
+                                    <select name="type" id="" v-model="selectPopulation">
+                                        <option disabled value="">
+                                            Количество населения
+                                        </option>
+                                        <option v-for="(item, index) in selectPopulationArr" v-bind:value="item.coef">
+                                            {{ item.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(1)" :class="{ 'active': selectFamaly }">
+                            <h3>Кол-во (ориентировочно) близких: друзей и родственников</h3><span :class="{ active: boxes[1].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[1].show">
+                                <div class="body-wrapper">
+
+                                    <small>Выберите примерное количество близких: друзей и родственников</small>
+
+                                    <select name="type" id="" v-model="selectFamaly">
+                                        <option disabled value="">
+                                            Количество близких
+                                        </option>
+                                        <option v-for="(item, index) in selectFamalyArr" v-bind:value="item.coef">
+                                            {{ item.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(2)" :class="{ 'active': checkExperienceSales }">
+                            <h3>Есть опыт продаж и маркетинга?</h3><span :class="{ active: boxes[2].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[2].show">
+                                <div class="body-wrapper calc-btn_wrapper">
+
+                                    <label>
+                                        <input type="checkbox" hidden v-model="checkExperienceSales" value="1">
+                                        <span class="calc-check"></span>
+                                        Да
+                                    </label>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(3)" :class="{ 'active': checkExperienceBusiness }">
+                            <h3>Опыт ведения бизнеса или самозанятости?</h3><span :class="{ active: boxes[3].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[3].show">
+                                <div class="body-wrapper calc-btn_wrapper">
+
+                                    <label>
+                                        <input type="checkbox" hidden v-model="checkExperienceBusiness" value="1">
+                                        <span class="calc-check"></span>
+                                        Да
+                                    </label>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(4)" :class="{ 'active': skillsFull === true }">
+                            <h3>Оцените свои умения и знания:</h3><span :class="{ active: boxes[4].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[4].show">
+                                <div class="body-wrapper calc-btn_wrapper">
+
+                                    <ul v-for="(item, index) in skillsArr" :key="item.name">
+                                        <li class="calc-item">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    hidden
+                                                    :value="item.coef"
+                                                    v-model="item.done"
+                                                >
+                                                <span><div></div></span>
+                                                <div>{{ item.name }}</div>
+                                            </label>
+                                        </li>
+                                        <transition name="slide">
+                                            <li v-show="item.done" class="calc-num">
+                                                <label>
+                                                    <input
+                                                        type="number"
+                                                        v-model="skillsNumberArr[index]">
+                                                    <span><div></div></span>
+                                                    <div class="calc-num_info">Укажите планируемое количество ежемесячных новостей/акций</div>
+                                                </label>
+                                            </li>
+                                        </transition>
+                                    </ul>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(5)" :class="{ 'active': selectAllPopulation }">
+                            <h3>Общее кол-во населения примыкающих городов, с которыми возможна работа</h3><span :class="{ active: boxes[5].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[5].show">
+                                <div class="body-wrapper">
+
+                                    <small>Выберите примерное количество населения в вашем городе</small>
+
+                                    <select name="type" id="" v-model="selectAllPopulation">
+                                        <option disabled value="">
+                                            Количество населения
+                                        </option>
+                                        <option v-for="(item, index) in selectPopulationArr" v-bind:value="item.coef">
+                                            {{ item.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(6)" :class="{ 'active': selectCity }">
+                            <h3>Учитывать коэффициент конкурентности:</h3><span :class="{ active: boxes[6].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[6].show">
+                                <div class="body-wrapper calc-btn_wrapper">
+
+                                    <ul v-for="(item, index) in coefCompetitionArr" :key="item.name">
+                                        <li class="calc-item">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    hidden
+                                                    :value="item.coef"
+                                                    v-model="item.done"
+                                                >
+                                                <span><div></div></span>
+                                                <div>{{ item.name }}</div>
+                                            </label>
+                                        </li>
+                                        <transition name="slide">
+                                            <select v-show="item.done" name="type" id="" v-model="selectCity">
+                                            <option disabled value="">
+                                                Города
+                                            </option>
+                                            <option v-for="(item, index) in cityArr" v-bind:value="item.coef">
+                                            {{ item.name }}
+                                        </option>
+                                    </select>
+                                        </transition>
+                                    </ul>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(7)" :class="{ 'active': checkSeasons }">
+                            <h3>Учитывать сезонность</h3><span :class="{ active: boxes[7].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[7].show">
+                                <div class="body-wrapper calc-btn_wrapper">
+
+                                    <label>
+                                        <input type="checkbox" hidden v-model="checkSeasons" value="1">
+                                        <span class="calc-check"></span>
+                                        Да
+                                    </label>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(8)" :class="{ 'active': activityFull === true }">
+                            <h3>Ваша активность:</h3><span :class="{ active: boxes[8].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[8].show">
+                                <div class="body-wrapper calc-btn_wrapper">
+
+                                    <ul v-for="(item, index) in activityArr" :key="item.name">
+                                        <li class="calc-item">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    hidden
+                                                    :value="item.coef"
+                                                    v-model="item.done"
+                                                >
+                                                <span><div></div></span>
+                                                <div>{{ item.name }}</div>
+                                            </label>
+                                        </li>
+                                        <transition name="slide">
+                                            <li v-show="item.done" class="calc-num">
+                                                <label>
+                                                    <input
+                                                        type="number"
+                                                        v-model="activityNumberArr[index]">
+                                                    <span><div></div></span>
+                                                    <div class="calc-num_info">Укажите планируемое количество часов</div>
+                                                </label>
+                                            </li>
+                                        </transition>
+                                    </ul>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                    <div class="calc-block">
+                        <div class="calc-block_title" @click="mytoggle(9)" :class="{ 'active': dopSaleFull === true }">
+                            <h3>Дополнительные инструменты продажи:</h3><span :class="{ active: boxes[9].show }"></span>
+                        </div>
+                        <transition name="slide">
+                            <div class="calc-block_body" v-show="boxes[9].show">
+                                <div class="body-wrapper calc-btn_wrapper">
+
+                                    <ul v-for="(item, index) in dopSaleArr" :key="item.name">
+                                        <li class="calc-item">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    hidden
+                                                    :value="item.coef"
+                                                    v-model="item.done"
+                                                >
+                                                <span><div></div></span>
+                                                <div>{{ item.name }}</div>
+                                            </label>
+                                        </li>
+                                        <transition name="slide">
+                                            <li v-show="item.done" class="calc-num">
+                                                <label>
+                                                    <input
+                                                        type="number"
+                                                        v-model="dopSaleNumberArr[index]">
+                                                    <span><div></div></span>
+                                                    <div class="calc-num_info">Укажите планируемое количество часов</div>
+                                                </label>
+                                            </li>
+                                        </transition>
+                                    </ul>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+                </div>
+            </transition>
+
+            <hr />
+
+            <h3><span style="color:#777">Предпологаемый доход:</span> {{ totalPrice }}</h3>
+
+            <hr>
+            <h4>Отладка:</h4>
+
+            <p>skillsFull: {{ skillsFull }}</p>
+
+            <pre> {{ $data | json }}</pre>
+
+        </div>
+    </div>
+
+    <script src="assets/js/vuejs/vue.js"></script>
+    <script src="assets/js/vuejs/avon-calc.js"></script>
+
+</body>
+
+</html>
