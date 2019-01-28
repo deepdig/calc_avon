@@ -42,7 +42,7 @@ var vm = new Vue({
         radioEarnings: '',
 
         // состояние аккордеона
-        boxes: [{show: true}, {show: false}, { show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}],
+        boxes: [{show: false}, {show: false}, { show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}, {show: false}],
         // --- Данные ---
         // Количество населения
         selectPopulationArr: [{
