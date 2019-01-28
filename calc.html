@@ -43,7 +43,7 @@
             </transition>
 
             <transition name="fade">
-                <div class="calc-body" v-show="activeButton3 || activeButton4">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
 
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(0)" :class="{ 'active': selectPopulation }">
@@ -67,7 +67,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(1)" :class="{ 'active': selectFamaly }">
                             <h3>Кол-во (ориентировочно) близких: друзей и родственников</h3><span :class="{ active: boxes[1].show }"></span>
@@ -90,7 +94,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(2)" :class="{ 'active': checkExperienceSales }">
                             <h3>Есть опыт продаж и маркетинга?</h3><span :class="{ active: boxes[2].show }"></span>
@@ -108,7 +116,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(3)" :class="{ 'active': checkExperienceBusiness }">
                             <h3>Опыт ведения бизнеса или самозанятости?</h3><span :class="{ active: boxes[3].show }"></span>
@@ -126,7 +138,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(4)" :class="{ 'active': skillsFull === true }">
                             <h3>Оцените свои умения и знания:</h3><span :class="{ active: boxes[4].show }"></span>
@@ -164,7 +180,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(5)" :class="{ 'active': selectAllPopulation }">
                             <h3>Общее кол-во населения примыкающих городов, с которыми возможна работа</h3><span :class="{ active: boxes[5].show }"></span>
@@ -187,7 +207,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(6)" :class="{ 'active': selectCity }">
                             <h3>Учитывать коэффициент конкурентности:</h3><span :class="{ active: boxes[6].show }"></span>
@@ -224,7 +248,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(7)" :class="{ 'active': checkSeasons }">
                             <h3>Учитывать сезонность</h3><span :class="{ active: boxes[7].show }"></span>
@@ -242,7 +270,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && (activeButton3 || activeButton4)">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(8)" :class="{ 'active': activityFull === true }">
                             <h3>Ваша активность:</h3><span :class="{ active: boxes[8].show }"></span>
@@ -280,7 +312,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && activeButton3">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(9)" :class="{ 'active': dopSaleFull === true }">
                             <h3>Дополнительные инструменты продажи:</h3><span :class="{ active: boxes[9].show }"></span>
@@ -318,7 +354,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && (activeButton3 || activeButton4)">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(10)" :class="{ 'active': selectNumCampaigns }">
                             <h3>Количество пройденных кампаний</h3><span :class="{ active: boxes[10].show }"></span>
@@ -342,7 +382,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && (activeButton3 || activeButton4)">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(11)" :class="{ 'active': selectNumYear }">
                             <h3>Год ведения бизнеса</h3><span :class="{ active: boxes[11].show }"></span>
@@ -366,7 +410,11 @@
                             </div>
                         </transition>
                     </div>
+                </div>
+            </transition>
 
+            <transition name="fade">
+                <div class="calc-body" v-show="(activeButton1 || activeButton2) && (activeButton3 || activeButton4)">
                     <div class="calc-block">
                         <div class="calc-block_title" @click="mytoggle(12)" :class="{ 'active': radioEarnings }">
                             <h3>Заработок показать "по-кампаниям" или "по-месячно"</h3><span :class="{ active: boxes[12].show }"></span>
@@ -394,7 +442,6 @@
                             </div>
                         </transition>
                     </div>
-
                 </div>
             </transition>
 

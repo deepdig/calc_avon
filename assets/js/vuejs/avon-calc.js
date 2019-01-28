@@ -165,6 +165,8 @@ var vm = new Vue({
         totalPrice: function() {
             var selectPopulation = this.selectTheme;
             var selectFamaly = this.selectFamaly;
+            var agent = this.activeButton1; // селектор Представителя
+            var coordinator = this.activeButton2; // селектор Координатора
 
             function checkedSum(array){
                 var sum = 0;
@@ -174,11 +176,23 @@ var vm = new Vue({
                 return Number(sum);
             }
 
-            return Math.round(
-                +selectPopulation +
-                +selectFamaly
-            );
+            if (agent === true) {
+
+                var summa = 100;
+
+            } else if (coordinator === true) {
+                var summa = 200;
+            }
+
+             return summa;
+
+//            return Math.round(
+//                +selectPopulation +
+//                +selectFamaly
+//            );
         },
+        // end - завершение функции "подсчет предпологаемого дохода" - totalPrice
+
         // функция активирующая заголовок "ОЦЕНИТЕ СВОИ УМЕНИЯ И ЗНАНИЯ"
         skillsFull: function() {
             var obj = this.skillsArr;
